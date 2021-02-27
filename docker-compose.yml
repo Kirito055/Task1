@@ -1,0 +1,19 @@
+version: "3"
+
+services:
+  server:
+    build: server/
+    ports:
+      - "5555:5555"
+
+  client:
+    build: client/
+    command: ./queries.sh
+    network_mode: host
+    depends_on:
+      - server
+    healthcheck:
+      test: nc -z server 5555
+      interval: 30s
+      timeout: 1s
+      retries: 5

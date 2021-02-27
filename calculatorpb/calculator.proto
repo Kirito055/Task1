@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package greet;
+
+option go_package="github.com\\Kirito055\\endka\\tree\\master\\greet\\calculatorpb;calculatorpb";
+
+message CalculatorRequest {
+  // Number to be decomposed
+  int64 number = 1;
+}
+
+// PrimeResponse describes one response sent to client from many that
+// contain one prime number for the requested number.
+message CalculatorResponse {
+  // One of the prime numbers
+  int64 resp = 1;
+}
+
+// PrimeService describes rpc methods to decompose prime numbers.
+service CalculatorService {
+  // The Prime API method decompose a number from the PrimeRequest into
+  // many prime numbers using an API stream of PrimeResponse.
+  // It method will throw an INVALID_ARGUMENT exception if the number to
+  // decompose is negative or lower than 2.
+  rpc Calculator(CalculatorRequest) returns (stream CalculatorResponse) {};
+}
